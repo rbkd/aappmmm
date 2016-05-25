@@ -1,0 +1,125 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <artifactId>apm-parent</artifactId>
+        <groupId>apm</groupId>
+        <version>1.0.5</version>
+        <relativePath>../parent/pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>apm-web</artifactId>
+    <packaging>war</packaging>
+    <name>web</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>apm</groupId>
+            <artifactId>apm-common</artifactId>
+            <version>1.0.5</version>
+        </dependency>  
+    </dependencies>
+    
+    <!-- 项目属性 -->
+	<properties>
+		<!-- other setting -->
+		<tomcat.version>2.1</tomcat.version>
+		<jetty.version>7.6.10.v20130312</jetty.version> 
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+    
+	<build>
+		<outputDirectory>${project.basedir}/src/main/webapp/WEB-INF/classes/</outputDirectory>
+		
+        <finalName>${project.artifactId}</finalName>
+ 
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+		
+		<plugins>
+			<!-- war 打包插件, 设定war包名称不带版本号 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<warName>${project.artifactId}</warName>
+				</configuration>
+			</plugin>
+			
+			<!-- tomcat6插件 -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat6-maven-plugin</artifactId>
+				<version>${tomcat.version}</version> 
+				<configuration>
+					<path>/${project.artifactId}</path>
+				</configuration>
+			</plugin>
+			
+			<!-- tomcat7插件 -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>${tomcat.version}</version> 
+				<configuration>
+					<path>/${project.artifactId}</path>
+				</configuration>
+			</plugin>
+			  <plugin>  
+                <groupId>custom-plugin</groupId>  
+                <artifactId>checkversion</artifactId>  
+                <version>0.0.1-SNAPSHOT</version>  
+                  <configuration>  
+                    <svnUsername>rbkd</svnUsername>  
+                    <svnPasswd>7670239</svnPasswd>  
+                    <svnUrl>svn://svn.club/apm</svnUrl>  
+                   <gitUsername>rbkd</gitUsername>
+                   <gitPasswd>7670239gz</gitPasswd>
+                   <jdbcUrl>jdbc:mysql://192.168.3.195:3306/checkversion?useUnicode=true&amp;characterEncoding=utf-8</jdbcUrl>
+                   <username>root</username>
+                   <passwd>123456</passwd>
+                   <filterString>1ere.txt,common/</filterString>
+                </configuration>  
+                <executions>  
+                    <execution>  
+                        <id>first</id>  
+                        <phase>install</phase>  
+                        <goals>  
+                            <goal>advance</goal>  
+                        </goals>  
+                    </execution>  
+                </executions>  
+            </plugin>  
+			<!-- jetty插件 -->
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>${jetty.version}</version> 
+				<configuration>
+					<webAppConfig>
+						<contextPath>/${project.artifactId}</contextPath>
+					</webAppConfig>
+				</configuration>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+    
+</project>
