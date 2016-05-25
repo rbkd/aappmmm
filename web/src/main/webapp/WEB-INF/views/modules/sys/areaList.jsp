@@ -20,7 +20,7 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="${ctx}/sys/area/">区域列表</a></li>
+		<li class="active"><a href="${ctx}/sys/area/">区域jkj列表</a></li>
 		<shiro:hasPermission name="sys:area:edit"><li><a href="${ctx}/sys/area/form">区域添加</a></li></shiro:hasPermission>
 	</ul>
 	<tags:message content="${message}"/>
